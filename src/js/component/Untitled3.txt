@@ -1,0 +1,65 @@
+//import react into the bundle
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+
+//include bootstrap npm library into the bundle
+import "bootstrap";
+
+//include your index.scss file into the bundle
+import "../../styles/index.scss";
+
+//include images into your bundle
+import List from "./list.jsx";
+
+export default function InputText() {
+	const [task, setTask] = useState("");
+	const [itemlist, setItemList] = useState("");
+	const [itemsaved, setItemSaved] = useState(0);
+	const [arraylist, setArrayList] = useState(["perro", "gato"]);
+
+	//Almacena el valor del input mientras cambia
+	function saveInput(event) {
+		setTask(event.target.value);
+	}
+
+	//Al pulsar el boton guarda
+	function setInput(event) {
+		setItemList(task);
+		addTaskinTask(task);
+		setItemSaved(!itemsaved);
+	}
+
+	function addTaskinTask(item) {
+		let arraycopy = arraylist;
+		arraycopy.push(item);
+		setArrayList(arraycopy);
+	}
+
+	return (
+		<div>
+			<h2>To Do List</h2>
+			<button onClick={setInput}>Save</button>
+
+			<div className="InputTask list-group-item ">
+				<input
+					type="text"
+					onChange={saveInput}
+					placeholder="Introduce new task"
+				/>
+			</div>
+			<ul className="list-group">
+				{arraylist.map(listitem => (
+					<li key={listitem} className="list-group-item">
+						{" Task "}
+						{" : "}
+						{listitem}
+					</li>
+				))}
+				<li key="itemsLeft" className="list-group-item itemsLeft">
+					<span>4items Left</span>
+				</li>
+			</ul>
+		</div>
+	);
+}
