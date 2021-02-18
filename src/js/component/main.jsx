@@ -10,15 +10,17 @@ import "bootstrap";
 import "../../styles/index.scss";
 
 //include images into your bundle
-import List from "./list.jsx";
+import Footer from "./footer.jsx";
+import Task from "./task.jsx";
 
-export default function InputText() {
+export default function Main() {
 	const [task, setTask] = useState("");
 	const [itemlist, setItemList] = useState("");
 	const [itemchanged, setItemChanged] = useState(false);
 	const [arraylist, setArrayList] = useState(["perro", "gato"]);
 	const [showicon, setShowIcon] = useState("");
 	const [isShown, setIsShown] = useState(false);
+	const [isDelete, setIsDelete] = useState(false);
 
 	//Almacena el valor del input mientras cambia
 	function saveInput(event) {
@@ -38,25 +40,23 @@ export default function InputText() {
 		setArrayList(arraycopy);
 	}
 
-	function deteleTaskinTasks() {
+	function deteleTaskinTasks(index) {
 		let arraycopy2 = arraylist;
-		arraycopy2.splice(0, 1);
+		arraycopy2.splice(index, 1);
 		setArrayList(arraycopy2);
-		console.log(arraycopy2);
-
-		console.log(arraylist);
 		setItemChanged(!itemchanged);
 	}
 
-	function onMouseSet() {
-		setShowIcon(
-			<button className="DeleteButton" onClick={deteleTaskinTasks}>
-				x
-			</button>
-		);
+	function onMouseSet(index) {
+		setShowIcon("");
+		// <button
+		// 	className="DeleteButton show"
+		// 	onClick={() => deteleTaskinTasks(index)}>
+		// 	x
+		// </button>
 	}
 
-	function onMouseLeave() {
+	function onMouseLeave(index) {
 		setShowIcon("");
 	}
 	return (
@@ -72,21 +72,39 @@ export default function InputText() {
 				/>
 			</div>
 			<ul className="list-group">
-				{arraylist.map((listitem, index) => (
-					<li
-						key={index}
-						className="list-group-item"
-						onMouseEnter={onMouseSet}
-						onMouseLeave={onMouseLeave}>
-						{" Task "}
-						{" : "}
-						{listitem} {showicon}
-					</li>
-				))}
-				<li key="itemsLeft" className="list-group-item itemsLeft">
-					<span>4items Left</span>
-				</li>
+				{arraylist.map((listitem, index) => {
+					return (
+						<li
+							key={index}
+							id={index}
+							className="list-group-item showitem"
+							// onMouseEnter={() => onMouseSet(index)}
+							// onMouseLeave={() => onMouseLeave(index)}
+						>
+							{" Task "}
+							{" : "}
+							{listitem} {showicon}
+							<button
+								className="DeleteButton show"
+								onClick={() => deteleTaskinTasks(index)}>
+								x
+							</button>
+						</li>
+					);
+				})}
+
+				<Footer length={arraylist.length} />
 			</ul>
 		</div>
 	);
 }
+
+/*<ul className="list-group">
+				{arraylist.map(listitem => (
+					<li key={listitem}>
+						<Task listitem={itemlist} />
+					</li>
+				))}
+
+				<Footer length={arraylist.length} />
+			</ul>*/
