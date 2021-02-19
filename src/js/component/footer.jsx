@@ -5,7 +5,14 @@ import PropTypes from "prop-types";
 export default function Footer(props) {
 	return (
 		<li key="itemsLeft" className="list-group-item itemsLeft">
-			<span>{props.length} Items Left</span>
+			<div>
+				{props.length}
+				{props.length == 0
+					? " Items. No task"
+					: props.length == 1
+					? " Item left"
+					: " Items left"}
+			</div>
 		</li>
 	);
 }

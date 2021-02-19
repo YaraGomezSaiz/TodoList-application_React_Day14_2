@@ -11,6 +11,7 @@ import "../../styles/index.scss";
 
 //include images into your bundle
 import Footer from "./footer.jsx";
+import GetInput from "./getinput.jsx";
 import Task from "./task.jsx";
 
 export default function Main() {
@@ -19,26 +20,31 @@ export default function Main() {
 	const [itemchanged, setItemChanged] = useState(false);
 	const [arraylist, setArrayList] = useState(["perro", "gato"]);
 	const [showicon, setShowIcon] = useState("");
-	const [isShown, setIsShown] = useState(false);
-	const [isDelete, setIsDelete] = useState(false);
 
-	//Almacena el valor del input mientras cambia
-	function saveInput(event) {
-		setTask(event.target.value);
-	}
+	// //Almacena el valor del input mientras cambia
 
-	//Al pulsar el boton guarda
-	function setInput(event) {
-		setItemList(task);
-		addTaskinTask(task);
-		setItemChanged(!itemchanged);
-	}
+	// function saveInput(event) {
+	// 	setTask(event.target.value);
+	// }
+
+	// //Al pulsar enter se guarda el valor del Input en el item task
+
+	// function setInput(event) {
+	// 	setItemList(task);
+	// 	addTaskinTask(task);
+	// 	setItemChanged(!itemchanged);
+	// }
+
+	//añade el item creado en el array de tareas
 
 	function addTaskinTask(item) {
 		let arraycopy = arraylist;
 		arraycopy.push(item);
 		setArrayList(arraycopy);
+		setItemChanged(!itemchanged);
 	}
+
+	//borra el item seleccionado del array de tareas
 
 	function deteleTaskinTasks(index) {
 		let arraycopy2 = arraylist;
@@ -59,37 +65,21 @@ export default function Main() {
 	function onMouseLeave(index) {
 		setShowIcon("");
 	}
+
 	return (
 		<div>
 			<h2>To Do List</h2>
-			<button onClick={setInput}>Save</button>
+			<GetInput onEnter={addTaskinTask} />
 
-			<div className="InputTask list-group-item ">
-				<input
-					type="text"
-					onChange={saveInput}
-					placeholder="Introduce new task"
-				/>
-			</div>
 			<ul className="list-group">
 				{arraylist.map((listitem, index) => {
 					return (
-						<li
-							key={index}
-							id={index}
-							className="list-group-item showitem"
-							// onMouseEnter={() => onMouseSet(index)}
-							// onMouseLeave={() => onMouseLeave(index)}
-						>
-							{" Task "}
-							{" : "}
-							{listitem} {showicon}
-							<button
-								className="DeleteButton show"
-								onClick={() => deteleTaskinTasks(index)}>
-								x
-							</button>
-						</li>
+						<Task
+							key={listitem}
+							listitem={listitem}
+							index={index}
+							delete={deteleTaskinTasks}
+						/>
 					);
 				})}
 
