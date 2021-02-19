@@ -47,11 +47,14 @@ width: 500px;
     background-color: transparent;
 }
 
+
+// por defecto aunque el boton existe no se muesta
 .show{
 
     display:none;
 }
 
+// en el momemnto que estas sobre un item concreto se muestra el boton
 .showitem:hover{
 
     .show {

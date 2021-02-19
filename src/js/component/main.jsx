@@ -18,24 +18,15 @@ export default function Main() {
 	const [task, setTask] = useState("");
 	const [itemlist, setItemList] = useState("");
 	const [itemchanged, setItemChanged] = useState(false);
-	const [arraylist, setArrayList] = useState(["perro", "gato"]);
-	const [showicon, setShowIcon] = useState("");
+	const [arraylist, setArrayList] = useState([
+		"comprar IPAs",
+		"llamar a mama"
+	]);
 
-	// //Almacena el valor del input mientras cambia
-
-	// function saveInput(event) {
-	// 	setTask(event.target.value);
-	// }
-
-	// //Al pulsar enter se guarda el valor del Input en el item task
-
-	// function setInput(event) {
-	// 	setItemList(task);
-	// 	addTaskinTask(task);
-	// 	setItemChanged(!itemchanged);
-	// }
-
-	//añade el item creado en el array de tareas
+	//añade el item creado al array de tareas
+	/* para trabajar con array states previamente se copia el array actual 
+    en un array auxiliar, se trabaja sobre el auxiliar 
+    y se vuelve a copiar en el array origen*/
 
 	function addTaskinTask(item) {
 		let arraycopy = arraylist;
@@ -53,24 +44,17 @@ export default function Main() {
 		setItemChanged(!itemchanged);
 	}
 
-	function onMouseSet(index) {
-		setShowIcon("");
-		// <button
-		// 	className="DeleteButton show"
-		// 	onClick={() => deteleTaskinTasks(index)}>
-		// 	x
-		// </button>
-	}
-
-	function onMouseLeave(index) {
-		setShowIcon("");
-	}
-
 	return (
 		<div>
 			<h2>To Do List</h2>
+			{/* a GetInput le decimos por el prop onEnter(de tipo funcion) que cuando se active onEnter 
+            llame a la funcion padre addTaskinTask, 
+            es decir desde el hijo GetInput llamamamos a una funcion del padre*/}
 			<GetInput onEnter={addTaskinTask} />
 
+			{/* array.map recorre arraylist, en cada iteacion llama al componente hijo Task, 
+            hay que configurar la key={} pq js lo necesita internamente 
+            pero no es una prop que haya que definir en Task*/}
 			<ul className="list-group">
 				{arraylist.map((listitem, index) => {
 					return (
@@ -88,13 +72,3 @@ export default function Main() {
 		</div>
 	);
 }
-
-/*<ul className="list-group">
-				{arraylist.map(listitem => (
-					<li key={listitem}>
-						<Task listitem={itemlist} />
-					</li>
-				))}
-
-				<Footer length={arraylist.length} />
-			</ul>*/

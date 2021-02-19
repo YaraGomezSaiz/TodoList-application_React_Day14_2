@@ -8,7 +8,7 @@ export default function Footer(props) {
 			<div>
 				{props.length}
 				{props.length == 0
-					? " Items. No task"
+					? " Items. Introduce new task"
 					: props.length == 1
 					? " Item left"
 					: " Items left"}
