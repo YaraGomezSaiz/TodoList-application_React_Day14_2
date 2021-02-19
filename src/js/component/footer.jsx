@@ -7,6 +7,8 @@ export default function Footer(props) {
 		<li key="itemsLeft" className="list-group-item itemsLeft">
 			<div>
 				{props.length}
+
+				{/* condicional if else en sintaxis html */}
 				{props.length == 0
 					? " Items. Introduce new task"
 					: props.length == 1
