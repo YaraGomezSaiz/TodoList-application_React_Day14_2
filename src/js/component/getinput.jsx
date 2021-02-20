@@ -33,5 +33,5 @@ export default function GetInput(props) {
 }
 
 GetInput.propTypes = {
-	onEnter: PropTypes.string
+	onEnter: PropTypes.func
 };

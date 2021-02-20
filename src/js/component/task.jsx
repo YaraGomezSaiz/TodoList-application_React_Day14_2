@@ -34,5 +34,5 @@ export default function Task(props) {
 Task.propTypes = {
 	index: PropTypes.number,
 	listitem: PropTypes.string,
-	delete: PropTypes.number
+	delete: PropTypes.func
 };
